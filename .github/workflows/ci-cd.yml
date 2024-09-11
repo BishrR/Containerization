@@ -78,7 +78,7 @@ jobs:
         docker pull ${{ secrets.DOCKER_USERNAME }}/mysql-db-service
         docker pull ${{ secrets.DOCKER_USERNAME }}/stream-video-service
         
-        mkdir -p /correct/path/to/docker-compose-directory  # Create directory if not exists
-        cd /correct/path/to/docker-compose-directory  # Change to the correct directory
-        docker-compose pull
-        docker-compose up -d
+        
+        cd /home/ec2-user
+  
+        docker-compose -f docker-compose.yml up
