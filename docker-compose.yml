@@ -1,0 +1,54 @@
+version: '3'
+services:
+  auth-service:
+    build: ./Authentication-Service
+    container_name: auth
+    ports:
+      - "3002:3002"
+    networks:
+      - video-network
+
+  upload-video-service:
+    build: ./Upload-Video-Service
+    container_name: upload
+    ports:
+      - "3001:3001"
+    networks:
+      - video-network
+
+  file-system-service:
+    build: ./File-System-Service
+    container_name: file-system
+    ports:
+      - "3003:3003"
+    networks:
+      - video-network
+
+  stream-video-service:
+    build: ./Stream-Video-Service
+    container_name: stream
+    ports:
+      - "3004:3004"
+    networks:
+      - video-network
+
+  mysql-db:
+    image: mysql:latest
+    build: ./MySQL-DB-Service
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: videosdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - video-network
+
+
+networks:
+  video-network:
+    driver: bridge

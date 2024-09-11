@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Stream Videos</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styling -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f1f2f6;
+            font-family: 'Poppins', sans-serif;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #3498db;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login to Stream Videos</h2>
+        <form action="//localhost:3004/login" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p class="error-message" style="display:none;">Invalid username or password</p> <!-- Can be shown dynamically if needed -->
+    </div>
+
+</body>
+</html>

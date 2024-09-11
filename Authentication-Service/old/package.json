@@ -1,0 +1,13 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "Authentication service",
+  "main": "app.js",
+  "scripts": {
+    "start": "node auth.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
+  }
+}

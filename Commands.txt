@@ -1,0 +1,86 @@
+docker ps					--->	list containers
+docker pull ubuntu				--->	pull image from docker hub
+docker run -itd ubuntu				--->	run container in background
+docker attach containerID			--->	access the container
+docker run -d -p 80:80 ngnix			--->	run container in background
+docker stop containerID				--->	stop container
+docker run -d --name="c1" ubuntu		--->	custom name for container
+docker inspect containerID			--->	information about container
+docker run centos ping -c 5 127.0.0.1		--->	ping then container stopped
+docker logs containerID				--->	return logs of container
+docker exec -it ubuntu /bin/sh			--->	execute command
+docker rm containerID				--->	remove container
+
+docker volume create vName			--->	create volume
+docker run -it -v vName:/dir1 ubuntu		--->	map volume to specific directory in container
+docker volume rm vName				--->	remove volume
+
+docker newtwork create nName			--->	create network
+docker network inspect nName			--->	return network info
+docker run -it --network net1 --name c1 ubuntu	--->	create container on specific network
+
+docker commit containerID iName:v1		--->	create image from container
+docker tag iName:v1 dockerhubAccount/iName:v1	--->	tag the image to know the docker hub account
+docker push dockerhubAccount/iName:v1		--->	push modified image to docker hub
+
+Dockerfile:
+From ubuntu
+RUN apt-get -y update
+RUN apt-get -y install iputils-ping
+
+docker build -t iName:v2 .			--->	build image using docker file in current path
+
+docker-compose build --no-cache			--->	build compose with new image
+docker-compose -f docker-compose.yml up		--->	run the compose file and containers in it
+docker-compose -f docker-compose.yml down	--->	stop the compose		
+
+
+
+docker build -t upload-video-service ./Upload-Video-Service --no-cache
+docker build -t authentication-service ./Authentication-Service --no-cache
+docker build -t mysql-db-service ./MySQL-DB-Service --no-cache
+docker build -t file-system-service ./File-System-Service --no-cache
+
+docker run -d -p 3001:3001 upload-video-service
+docker run -d -p 3002:3002 authentication-service
+docker run -d -p 3307:3306 mysql-db-service
+docker run -d -p 3004:3004 file-system-service
+
+
+
+app.js
+const express = require('express');
+const axios = require('axios');
+const path = require('path');
+const app = express();
+const port = 8080;
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const response = await axios.post('http://auth-service:3000/authenticate', {
+            username,
+            password
+        });
+
+        if (response.data.success) {
+            res.send(`Welcome ${username}, you are now logged in!`);
+        } else {
+            res.send('Login failed. Please check your credentials.');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred during authentication.');
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Web app listening on port ${port}`);
+});
