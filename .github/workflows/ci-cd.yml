@@ -78,4 +78,5 @@ jobs:
         docker pull ${{ secrets.DOCKER_USERNAME }}/mysql-db-service
         docker pull ${{ secrets.DOCKER_USERNAME }}/stream-video-service
 
+        cd /home/ec2-user
         docker-compose up -d
