@@ -79,6 +79,6 @@ jobs:
         docker pull ${{ secrets.DOCKER_USERNAME }}/stream-video-service
         
         
-        cd /home/ec2-user
+        cd /home/ec2-user2
   
         docker-compose -f docker-compose.yml up
